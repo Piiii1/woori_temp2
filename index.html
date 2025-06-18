@@ -46,36 +46,6 @@
         <img src="src/hidden.png" alt="이벤트 이미지">
     </div>
 
-    <div id="playMessage" class="message">
-        화면을 터치하면<br>음악이 재생됩니다.
-    </div>
-
-    <audio id="bgm" src="src/123.mov" autoplay loop muted></audio>
-
-    <script>
-        const bgm = document.getElementById('bgm');
-        const playMessage = document.getElementById('playMessage');
-        let isMutedByPolicy = bgm.muted; // 브라우저 정책에 의해 음소거되었는지 확인
-
-        // 소리가 꺼진 상태라면 안내 메시지를 보여줍니다.
-        if (isMutedByPolicy) {
-            playMessage.style.display = 'block';
-        }
-
-        // 사용자가 페이지의 아무 곳이나 한 번 클릭(터치)하면 실행됩니다.
-        function playMusic() {
-            // 소리를 켭니다.
-            bgm.muted = false;
-            // 혹시 재생이 멈췄을 경우를 대비해 다시 재생합니다.
-            bgm.play();
-            // 안내 메시지를 숨깁니다.
-            playMessage.style.display = 'none';
-            // 이벤트 리스너를 제거하여 더 이상 실행되지 않게 합니다.
-            document.body.removeEventListener('click', playMusic);
-        }
-        
-        document.body.addEventListener('click', playMusic);
-    </script>
 
 </body>
 </html>
