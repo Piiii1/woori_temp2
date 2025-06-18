@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비전수련회 히든미션 보상</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        /* 사용자에게 안내 메시지를 보여주기 위한 스타일 (선택사항) */
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 16px;
+            text-align: center;
+            cursor: pointer;
+            /* 스크립트로 제어하기 전까지는 숨김 */
+            display: none; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="src/hidden.png" alt="이벤트 이미지">
+    </div>
+
+    <div id="playMessage" class="message">
+        화면을 터치하면<br>음악이 재생됩니다.
+    </div>
+
+    <audio id="bgm" src="src/123.mov" autoplay loop muted></audio>
+
+    <script>
+        const bgm = document.getElementById('bgm');
+        const playMessage = document.getElementById('playMessage');
+        let isMutedByPolicy = bgm.muted; // 브라우저 정책에 의해 음소거되었는지 확인
+
+        // 소리가 꺼진 상태라면 안내 메시지를 보여줍니다.
+        if (isMutedByPolicy) {
+            playMessage.style.display = 'block';
+        }
+
+        // 사용자가 페이지의 아무 곳이나 한 번 클릭(터치)하면 실행됩니다.
+        function playMusic() {
+            // 소리를 켭니다.
+            bgm.muted = false;
+            // 혹시 재생이 멈췄을 경우를 대비해 다시 재생합니다.
+            bgm.play();
+            // 안내 메시지를 숨깁니다.
+            playMessage.style.display = 'none';
+            // 이벤트 리스너를 제거하여 더 이상 실행되지 않게 합니다.
+            document.body.removeEventListener('click', playMusic);
+        }
+        
+        document.body.addEventListener('click', playMusic);
+    </script>
+
+</body>
+</html>
